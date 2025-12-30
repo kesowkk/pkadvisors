@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0B1F3B" />
+  <title>PK Advisors | Chartered Accountants & Tax Consultants</title>
+  <meta name="description" content="PK Advisors is a Chartered Accountancy firm offering GST, Income Tax, Company Law, IFRS, Audit & Assurance, and litigation support." />
+
+  <!-- Open Graph (replace placeholders) -->
+  <meta property="og:title" content="PK Advisors" />
+  <meta property="og:description" content="GST | Income Tax | Company Law | IFRS | Audit | Litigation" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.pkadvisors.in" />
+  <meta property="og:image" content="https://www.pkadvisors.in/og.jpg" />
+
+  <style>
+    /* ====== PK Advisors – Single-page website ====== */
+    :root{
+      --bg: #071427;
+      --surface: #0B1F3B;
+      --surface-2:#0E2A52;
+      --card:#0C2343;
+      --text:#EAF2FF;
+      --muted:#BBD0F7;
+      --line: rgba(255,255,255,.12);
+      --brand:#1F8A70;      /* emerald */
+      --brand-2:#7CDEB5;    /* mint */
+      --warn:#FFB020;
+      --shadow: 0 18px 45px rgba(0,0,0,.28);
+      --radius: 20px;
+      --radius-sm: 14px;
+      --max: 1120px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", "Noto Sans", "Liberation Sans", sans-serif;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 10% 0%, rgba(31,138,112,.25), transparent 55%),
+        radial-gradient(900px 650px at 90% 10%, rgba(124,222,181,.12), transparent 60%),
+        linear-gradient(180deg, var(--bg), #061022 70%, #050E1B);
+      line-height:1.5;
+    }
+
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+
+    /* Accessibility */
+    .skip{
+      position:absolute;
+      left:-999px;
+      top:10px;
+      padding:10px 14px;
+      background:var(--brand);
+      color:#04130f;
+      border-radius:10px;
+      z-index:9999;
+    }
+    .skip:focus{left:10px; outline:none}
+    :focus-visible{outline:3px solid rgba(124,222,181,.9); outline-offset:3px; border-radius:12px}
+
+    /* Layout helpers */
+    .container{max-width:var(--max); margin:0 auto; padding:0 20px}
+    .grid{display:grid; gap:18px}
+    .muted{color:var(--muted)}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50;
+      background: rgba(7,20,39,.72);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      min-width: 180px;
+    }
+    .logo{
+      width:40px; height:40px; border-radius:14px;
+      background: linear-gradient(135deg, rgba(31,138,112,1), rgba(124,222,181,1));
+      box-shadow: 0 12px 30px rgba(31,138,112,.25);
+      display:grid; place-items:center;
+      color:#04130f;
+      font-weight:900;
+      letter-spacing:.3px;
+    }
+    .brand .name{display:flex; flex-direction:column; line-height:1.15}
+    .brand .name strong{font-size:15px}
+    .brand .name span{font-size:12px; color:var(--muted)}
+
+    nav ul{list-style:none; margin:0; padding:0; display:flex; align-items:center; gap:18px}
+    nav a{font-size:14px; color:rgba(234,242,255,.92)}
+    nav a:hover{color:var(--brand-2)}
+
+    .actions{display:flex; align-items:center; gap:10px}
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:11px 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      font-weight:700;
+      font-size:13px;
+      gap:10px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); background:rgba(255,255,255,.10); border-color:rgba(124,222,181,.35)}
+    .btn.primary{background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#04130f; border-color:transparent}
+    .btn.primary:hover{background:linear-gradient(135deg, #25a685, var(--brand-2))}
+    .btn.ghost{background:transparent}
+
+    .icon{width:18px; height:18px; display:inline-block}
+
+    .menu-btn{display:none}
+
+    /* Hero */
+    .hero{padding:56px 0 18px}
+    .hero-wrap{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:22px;
+      align-items:stretch;
+    }
+    .hero-card{
+      background: linear-gradient(180deg, rgba(11,31,59,.8), rgba(11,31,59,.55));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-card::before{
+      content:"";
+      position:absolute; inset:-120px -120px auto auto;
+      width:260px; height:260px;
+      background: radial-gradient(circle at 30% 30%, rgba(124,222,181,.35), transparent 60%);
+      transform: rotate(20deg);
+      pointer-events:none;
+    }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(124,222,181,.25);
+      background: rgba(31,138,112,.10);
+      color: var(--brand-2);
+      font-weight:800;
+      font-size:12px;
+      letter-spacing:.3px;
+      text-transform:uppercase;
+    }
+
+    h1{margin:14px 0 10px; font-size:44px; line-height:1.06; letter-spacing:-.7px}
+    .hero p{margin:0 0 18px; color:rgba(234,242,255,.88); max-width:60ch}
+
+    .hero-cta{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px}
+
+    .trust{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:10px;
+      margin-top:18px;
+    }
+    .pill{
+      padding:10px 12px;
+      background: rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      border-radius:999px;
+      font-size:12px;
+      display:flex; align-items:center; justify-content:center;
+      color:rgba(234,242,255,.9);
+    }
+
+    .side{
+      display:grid;
+      gap:18px;
+    }
+    .stat{
+      background: linear-gradient(180deg, rgba(14,42,82,.65), rgba(14,42,82,.40));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:18px;
+    }
+    .stat strong{display:block; font-size:22px; margin-bottom:4px}
+    .stat span{color:var(--muted); font-size:13px}
+
+    /* Section base */
+    section{padding:46px 0}
+    .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:14px; margin-bottom:18px}
+    .section-head h2{margin:0; font-size:26px; letter-spacing:-.3px}
+    .section-head p{margin:0; color:var(--muted); max-width:70ch}
+
+    /* Cards */
+    .card{
+      background: linear-gradient(180deg, rgba(12,35,67,.72), rgba(12,35,67,.44));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow: 0 14px 35px rgba(0,0,0,.22);
+    }
+    .card h3{margin:0 0 6px; font-size:16px}
+    .card p{margin:0; color:rgba(234,242,255,.82); font-size:13px}
+
+    .service-grid{grid-template-columns: repeat(3, minmax(0,1fr))}
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(31,138,112,.12);
+      border: 1px solid rgba(124,222,181,.22);
+      color: var(--brand-2);
+      font-size:12px;
+      font-weight:800;
+      margin-bottom:10px;
+    }
+
+    /* Process */
+    .process{grid-template-columns: repeat(4, minmax(0,1fr))}
+    .step{position:relative; overflow:hidden}
+    .step .num{font-family:var(--mono); font-weight:900; color:rgba(124,222,181,.9)}
+
+    /* Testimonials */
+    .testimonials{grid-template-columns: repeat(3, minmax(0,1fr))}
+    blockquote{margin:0; padding:0}
+    .quote{font-size:13px; color:rgba(234,242,255,.85)}
+    .who{margin-top:10px; display:flex; align-items:center; gap:10px}
+    .avatar{width:34px; height:34px; border-radius:12px; background:rgba(124,222,181,.18); border:1px solid rgba(124,222,181,.22)}
+    .who strong{font-size:13px; display:block}
+    .who span{font-size:12px; color:var(--muted)}
+
+    /* Insights */
+    .insights{grid-template-columns: repeat(3, minmax(0,1fr))}
+    .meta{font-size:12px; color:var(--muted); margin-bottom:8px}
+
+    /* Contact */
+    .contact{
+      display:grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap:18px;
+      align-items:start;
+    }
+    .list{display:grid; gap:10px; margin-top:10px}
+    .item{display:flex; gap:10px; align-items:flex-start}
+    .item .dot{width:10px; height:10px; border-radius:50%; margin-top:6px; background: var(--brand-2)}
+
+    form{display:grid; gap:10px}
+    input, textarea, select{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size:14px;
+    }
+    textarea{min-height:120px; resize:vertical}
+    input::placeholder, textarea::placeholder{color: rgba(234,242,255,.55)}
+
+    .note{font-size:12px; color:rgba(234,242,255,.72)}
+    .fineprint{font-size:12px; color:rgba(234,242,255,.66)}
+
+    /* Footer */
+    footer{padding:28px 0 42px; border-top:1px solid var(--line); background: rgba(5,14,27,.65)}
+    .footer{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr .8fr;
+      gap:18px;
+    }
+    .footer h4{margin:0 0 10px; font-size:14px}
+    .footer a{color:rgba(234,242,255,.82); font-size:13px}
+    .footer a:hover{color:var(--brand-2)}
+
+    /* Floating WhatsApp */
+    .wa{
+      position:fixed; right:18px; bottom:18px; z-index:60;
+      display:flex; align-items:center; gap:10px;
+      padding:12px 14px;
+      border-radius:999px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color:#04130f;
+      box-shadow: 0 20px 40px rgba(31,138,112,.25);
+      font-weight:900;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-wrap{grid-template-columns: 1fr;}
+      .trust{grid-template-columns: repeat(2, minmax(0,1fr))}
+      .service-grid{grid-template-columns: repeat(2, minmax(0,1fr))}
+      .process{grid-template-columns: repeat(2, minmax(0,1fr))}
+      .testimonials{grid-template-columns: 1fr}
+      .insights{grid-template-columns: 1fr}
+      .contact{grid-template-columns: 1fr}
+      .footer{grid-template-columns: 1fr;}
+    }
+
+    @media (max-width: 760px){
+      nav{display:none}
+      .menu-btn{display:inline-flex}
+      h1{font-size:36px}
+      .service-grid{grid-template-columns: 1fr}
+      .trust{grid-template-columns: 1fr}
+      .process{grid-template-columns: 1fr}
+
+      .mobile{
+        display:none;
+        border-top:1px solid var(--line);
+        padding:10px 0 14px;
+      }
+      .mobile.open{display:block}
+      .mobile a{display:block; padding:10px 0; color:rgba(234,242,255,.92)}
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header>
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="#top" aria-label="PK Advisors home">
+          <div class="logo" aria-hidden="true">PK</div>
+          <div class="name">
+            <strong>PK Advisors</strong>
+            <span>Chartered Accountants & Tax Consultants</span>
+          </div>
+        </a>
+
+        <nav aria-label="Primary">
+          <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#insights">Insights</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="actions">
+          <a class="btn ghost" href="#contact" aria-label="Book a consultation">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 3v3M17 3v3M4 8h16M6 12h4M6 16h4M14 12h4M14 16h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M5 6h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            Book
+          </a>
+          <a class="btn primary" href="#contact" aria-label="Get a quote">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 20V4h10l6 6v10H4Z" stroke="currentColor" stroke-width="2"/>
+              <path d="M14 4v6h6" stroke="currentColor" stroke-width="2"/>
+              <path d="M7 13h10M7 16h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Get Quote
+          </a>
+          <button class="btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Menu
+          </button>
+        </div>
+      </div>
+
+      <div class="mobile" id="mobileMenu" aria-label="Mobile navigation">
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#insights">Insights</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="container">
+        <div class="hero-wrap">
+          <div class="hero-card">
+            <span class="kicker">Reliable compliance. Strong representation.</span>
+            <h1>Tax, compliance, and litigation support—done right.</h1>
+            <p>
+              PK Advisors supports businesses and professionals with GST, Income Tax, Company Law & ROC, IFRS,
+              Audit & Assurance, and end-to-end representation in departmental proceedings.
+            </p>
+
+            <div class="hero-cta">
+              <a class="btn primary" href="#contact">Book a Consultation</a>
+              <a class="btn" href="#services">Explore Services</a>
+              <a class="btn ghost" href="#insights">Read Insights</a>
+            </div>
+
+            <div class="trust" aria-label="Key capabilities">
+              <div class="pill">GST Compliance & Litigation</div>
+              <div class="pill">Income Tax Advisory</div>
+              <div class="pill">Company Law (ROC)</div>
+              <div class="pill">IFRS / Financial Reporting</div>
+              <div class="pill">Audit & Assurance</div>
+              <div class="pill">Business Advisory</div>
+            </div>
+          </div>
+
+          <div class="side">
+            <div class="stat">
+              <strong>Client-ready outputs</strong>
+              <span>Clear documentation, timelines, and defensible working papers.</span>
+            </div>
+            <div class="stat">
+              <strong>Compliance + representation</strong>
+              <span>From filings to replies, hearings, and litigation assistance.</span>
+            </div>
+            <div class="stat">
+              <strong>Practical guidance</strong>
+              <span>Solutions aligned to your cashflows, controls, and business realities.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Core Services</h2>
+            <p>Pick a service area—our team can take you from compliance to dispute resolution.</p>
+          </div>
+          <a class="btn" href="#contact">Request Proposal</a>
+        </div>
+
+        <div class="grid service-grid">
+          <div class="card">
+            <div class="badge">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 7h16M4 12h10M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              GST
+            </div>
+            <h3>GST Compliance & Litigation</h3>
+            <p>Registrations, returns, reconciliations, notices, replies, hearings, and appellate support.</p>
+          </div>
+
+          <div class="card">
+            <div class="badge">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2v20M4 8h16M6 16h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              Income Tax
+            </div>
+            <h3>Income Tax Advisory</h3>
+            <p>Return filing, assessments/scrutiny, notices, TDS, AIS review, and representation.</p>
+          </div>
+
+          <div class="card">
+            <div class="badge">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 20V9l8-5 8 5v11" stroke="currentColor" stroke-width="2"/>
+                <path d="M9 20v-6h6v6" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              ROC
+            </div>
+            <h3>Company Law & ROC</h3>
+            <p>Incorporation, annual filings, compliance management, director matters, and advisory.</p>
+          </div>
+
+          <div class="card">
+            <div class="badge">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 19V5h16v14H4Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M7 9h10M7 12h10M7 15h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              IFRS
+            </div>
+            <h3>Accounting & IFRS</h3>
+            <p>Bookkeeping, MIS, Ind AS/IFRS support, and financial statement preparation.</p>
+          </div>
+
+          <div class="card">
+            <div class="badge">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3l9 4-9 4-9-4 9-4Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M3 7v10l9 4 9-4V7" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              Audit
+            </div>
+            <h3>Audit & Assurance</h3>
+            <p>Statutory, tax and internal audit support, working papers, and control strengthening.</p>
+          </div>
+
+          <div class="card">
+            <div class="badge">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 16l3-3 3 3 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4 20V4h16v16H4Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              Advisory
+            </div>
+            <h3>Business Advisory</h3>
+            <p>Entity structuring, compliance roadmaps, SOPs, dashboards, and finance partnering.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>How We Work</h2>
+            <p>A clear, documented approach so you always know what happens next.</p>
+          </div>
+        </div>
+
+        <div class="grid process">
+          <div class="card step">
+            <div class="badge"><span class="num">01</span>&nbsp;Discover</div>
+            <h3>Understand</h3>
+            <p>We capture facts, timelines, documents, and business context without assumptions.</p>
+          </div>
+          <div class="card step">
+            <div class="badge"><span class="num">02</span>&nbsp;Diagnose</div>
+            <h3>Analyse</h3>
+            <p>We map issues to applicable law, risks, and evidence requirements.</p>
+          </div>
+          <div class="card step">
+            <div class="badge"><span class="num">03</span>&nbsp;Deliver</div>
+            <h3>Execute</h3>
+            <p>Filing, compliance, replies, reconciliations, and working papers—end-to-end.</p>
+          </div>
+          <div class="card step">
+            <div class="badge"><span class="num">04</span>&nbsp;Defend</div>
+            <h3>Represent</h3>
+            <p>Hearing readiness, submissions, follow-ups, and dispute support.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY US / TESTIMONIALS -->
+    <section aria-label="Why PK Advisors">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Why PK Advisors</h2>
+            <p>Compliance with a litigation mindset—built for scrutiny and audit trails.</p>
+          </div>
+        </div>
+
+        <div class="grid testimonials">
+          <div class="card">
+            <blockquote>
+              <div class="quote">“Clear documentation and fast response on GST notices. The approach was practical and defensible.”</div>
+              <div class="who">
+                <div class="avatar" aria-hidden="true"></div>
+                <div>
+                  <strong>Client testimonial</strong>
+                  <span>Manufacturing / MSME</span>
+                </div>
+              </div>
+            </blockquote>
+          </div>
+          <div class="card">
+            <blockquote>
+              <div class="quote">“Strong follow-up and clean filings. Timelines were maintained and explanations were simple.”</div>
+              <div class="who">
+                <div class="avatar" aria-hidden="true"></div>
+                <div>
+                  <strong>Client testimonial</strong>
+                  <span>Trading / Services</span>
+                </div>
+              </div>
+            </blockquote>
+          </div>
+          <div class="card">
+            <blockquote>
+              <div class="quote">“Good advisory on structuring and ROC compliance. We avoided repeat mistakes.”</div>
+              <div class="who">
+                <div class="avatar" aria-hidden="true"></div>
+                <div>
+                  <strong>Client testimonial</strong>
+                  <span>Startup / Professional</span>
+                </div>
+              </div>
+            </blockquote>
+          </div>
+        </div>
+
+        <div class="grid" style="grid-template-columns: repeat(3, minmax(0,1fr)); margin-top:18px">
+          <div class="card">
+            <h3>Documentation-first</h3>
+            <p>Every conclusion is backed by a file, trail, and working paper standard.</p>
+          </div>
+          <div class="card">
+            <h3>Timelines & ownership</h3>
+            <p>Clear responsibilities, reminders, and a single point of contact per engagement.</p>
+          </div>
+          <div class="card">
+            <h3>Risk-aware advice</h3>
+            <p>We flag practical risks early—before notices, demands, or compliance failures.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INSIGHTS -->
+    <section id="insights">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Insights</h2>
+            <p>Practical notes and checklists (replace these with your real posts).</p>
+          </div>
+          <a class="btn" href="#contact">Subscribe / Request Updates</a>
+        </div>
+
+        <div class="grid insights">
+          <article class="card">
+            <div class="meta">GST • 6 min read</div>
+            <h3>How to prepare for a GST notice</h3>
+            <p>Documents to keep ready, reconciliation basics, and reply structure.</p>
+          </article>
+          <article class="card">
+            <div class="meta">Income Tax • 5 min read</div>
+            <h3>Best practices for AIS / TIS review</h3>
+            <p>Common mismatches, evidence hygiene, and year-end clean-up.</p>
+          </article>
+          <article class="card">
+            <div class="meta">Company Law • 4 min read</div>
+            <h3>Annual ROC compliance calendar</h3>
+            <p>Key forms, due dates, and internal controls for smooth filings.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Contact</h2>
+            <p>Share your requirement. We will respond with next steps and a checklist of documents.</p>
+          </div>
+        </div>
+
+        <div class="contact">
+          <div class="card">
+            <h3>PK Advisors</h3>
+            <p class="muted">Chartered Accountants & Tax Consultants</p>
+
+            <div class="list">
+              <div class="item"><div class="dot"></div><div><strong>Address:</strong> <span class="muted">[Insert office address]</span></div></div>
+              <div class="item"><div class="dot"></div><div><strong>Phone:</strong> <span class="muted">+91 [XXXXXXXXXX]</span></div></div>
+              <div class="item"><div class="dot"></div><div><strong>Email:</strong> <span class="muted">contact@pkadvisors.in</span></div></div>
+              <div class="item"><div class="dot"></div><div><strong>Working hours:</strong> <span class="muted">Mon–Sat • 10:00 AM – 7:00 PM</span></div></div>
+            </div>
+
+            <p class="note" style="margin-top:14px">
+              For litigation matters, include notice/order number, date, and limitation timeline.
+            </p>
+
+            <div class="card" style="margin-top:14px; border-radius:var(--radius-sm)">
+              <div class="meta">Optional</div>
+              <strong style="display:block; margin-bottom:6px">Map embed</strong>
+              <div class="fineprint">Replace this box with a Google Maps iframe when you publish.</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Send an enquiry</h3>
+            <form id="enquiryForm" novalidate>
+              <div class="grid" style="grid-template-columns: repeat(2, minmax(0,1fr)); gap:10px">
+                <div>
+                  <label class="fineprint" for="name">Name</label>
+                  <input id="name" name="name" placeholder="Your full name" required />
+                </div>
+                <div>
+                  <label class="fineprint" for="phone">Phone</label>
+                  <input id="phone" name="phone" placeholder="+91 XXXXX XXXXX" inputmode="tel" required />
+                </div>
+              </div>
+
+              <div class="grid" style="grid-template-columns: repeat(2, minmax(0,1fr)); gap:10px">
+                <div>
+                  <label class="fineprint" for="email">Email</label>
+                  <input id="email" name="email" type="email" placeholder="you@company.com" required />
+                </div>
+                <div>
+                  <label class="fineprint" for="service">Service</label>
+                  <select id="service" name="service" required>
+                    <option value="" selected disabled>Select</option>
+                    <option>GST Compliance</option>
+                    <option>GST Litigation</option>
+                    <option>Income Tax</option>
+                    <option>Company Law / ROC</option>
+                    <option>Accounting / IFRS</option>
+                    <option>Audit / Assurance</option>
+                    <option>Business Advisory</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="fineprint" for="message">Requirement</label>
+                <textarea id="message" name="message" placeholder="Briefly describe your case / requirement (timeline, notices, FYs involved, etc.)" required></textarea>
+              </div>
+
+              <button class="btn primary" type="submit">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M22 2 11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M22 2 15 22l-4-9-9-4 20-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+                Submit
+              </button>
+
+              <div id="formMsg" class="note" role="status" aria-live="polite"></div>
+              <p class="fineprint">This demo form doesn’t send emails. When deploying, connect it to a mail service (or a simple backend) to receive enquiries.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer">
+        <div>
+          <div class="brand" style="margin-bottom:10px">
+            <div class="logo" aria-hidden="true">PK</div>
+            <div class="name">
+              <strong>PK Advisors</strong>
+              <span>Chartered Accountants & Tax Consultants</span>
+            </div>
+          </div>
+          <div class="fineprint">Disclaimer: Content on this website is for general information and should not be construed as professional advice.</div>
+          <div class="fineprint" style="margin-top:8px">© <span id="year"></span> PK Advisors. All rights reserved.</div>
+        </div>
+
+        <div>
+          <h4>Quick links</h4>
+          <div class="grid" style="gap:8px">
+            <a href="#services">Services</a>
+            <a href="#process">Process</a>
+            <a href="#insights">Insights</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+
+        <div>
+          <h4>Contact</h4>
+          <div class="grid" style="gap:8px">
+            <a href="tel:+91XXXXXXXXXX">+91 [XXXXXXXXXX]</a>
+            <a href="mailto:contact@pkadvisors.in">contact@pkadvisors.in</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp CTA (replace number) -->
+  <a class="wa" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noreferrer" aria-label="WhatsApp PK Advisors">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M20 11.5a8.5 8.5 0 0 1-12.5 7.6L4 20l1-3.2A8.5 8.5 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M9.2 9.2c.2-.5.4-.6.8-.6h.7c.2 0 .4.1.5.3l.9 1.9c.1.2.1.4 0 .6l-.5.8c-.1.1-.1.3 0 .4.5.9 1.4 1.8 2.3 2.3.1.1.3.1.4 0l.8-.5c.2-.1.4-.1.6 0l1.9.9c.2.1.3.3.3.5v.7c0 .4-.1.6-.6.8-.5.2-1.6.4-2.4.1-1.4-.5-4.8-2.8-6.2-6.2-.3-.8-.1-1.9.1-2.4Z" fill="currentColor" opacity=".9"/>
+    </svg>
+    WhatsApp
+  </a>
+
+  <script>
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        const open = mobileMenu.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', String(open));
+      });
+      mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      }));
+    }
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Demo form validation (does not submit anywhere)
+    const form = document.getElementById('enquiryForm');
+    const msg = document.getElementById('formMsg');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        msg.textContent = '';
+
+        const required = ['name','phone','email','service','message'];
+        let ok = true;
+        for (const id of required) {
+          const el = document.getElementById(id);
+          if (!el || !String(el.value || '').trim()) { ok = false; el?.focus(); break; }
+        }
+
+        const email = document.getElementById('email')?.value || '';
+        const emailOk = /^\S+@\S+\.\S+$/.test(email);
+        if (ok && !emailOk) { ok = false; document.getElementById('email').focus(); }
+
+        if (!ok) {
+          msg.textContent = 'Please complete all fields with a valid email.';
+          return;
+        }
+
+        msg.textContent = 'Thanks. Your message is ready. Connect this form to email/backend when deploying.';
+        form.reset();
+      });
+    }
+  </script>
+
+  <!-- Structured Data (replace placeholders) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AccountingService",
+    "name": "PK Advisors",
+    "url": "https://www.pkadvisors.in",
+    "email": "contact@pkadvisors.in",
+    "telephone": "+916379851096",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Srirangam",
+      "addressLocality": "Tiruchirappalli",
+      "addressRegion": "Tamil Nadu",
+      "postalCode": "620006",
+      "addressCountry": "IN"
+    },
+    "areaServed": "IN",
+    "knowsAbout": [
+      "GST compliance",
+      "GST litigation",
+      "Income Tax",
+      "Company Law",
+      "ROC compliance",
+      "IFRS",
+      "Audit and assurance"
+    ]
+  }
+  </script>
+</body>
+</html>
